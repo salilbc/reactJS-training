@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <script crossorigin         src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script> 
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Input extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.getTime = this.getTime.bind(this);
+                    this.nameChanged = this.nameChanged.bind(this);
+                    this.buttonClicked = this.buttonClicked.bind(this);
+                    this.state = {
+                        name: ""
+                    }
+                }
+                
+                buttonClicked() {
+                    let { name } = this.state;
+                    this.props.playWithName(name);
+                }
+                
+                nameChanged(e) {
+                    this.setState({ name: e.target.value });
+                }
+                
+                getTime() {
+                    this.props.fn();
+                }
+                
+                render() {
+                    return (<div>
+                        <input type="text" placeholder="Name" onChange={this.nameChanged}></input>
+                        <br/>
+                        <button onClick={this.buttonClicked}>Click</button>    
+                        <hr/>    
+                        <button onClick={this.getTime}>Get Time</button>    
+                    </div>);
+                }
+            }    
+
+            class Output extends React.Component {
+                constructor(props) {
+                    super(props);
+                }
+                render() {
+                    return (<div>
+                        <h1>{this.props.message}</h1>
+                        <h1>{this.props.time}</h1>
+                    </div>)
+                }
+            }  
+            
+            class Parent extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        currentTime: "",
+                        message: ""
+                    }
+                    this.computeCurrentTime = this.computeCurrentTime.bind(this);
+                    this.computeMessage = this.computeMessage.bind(this);
+                }
+                
+                computeMessage(name) {
+                    this.setState({ message: `Hi ${name}`});
+                }
+
+                computeCurrentTime() {
+                    this.setState({ currentTime: new Date().toTimeString() })
+                }
+                
+                render() {
+                    return (<div>
+                        <Input fn={this.computeCurrentTime} 
+                               playWithName={this.computeMessage}/>
+                        <hr/>
+                        <Output message={this.state.message}  
+                                time={this.state.currentTime}/>    
+                    </div>)
+                }
+            }
+
+            ReactDOM.render(<Parent/>, document.getElementById("root"))
+
+
+
+
+
+
+
+
+
+        </script>
+    </body>
+</html>    

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script crossorigin         src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script> 
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="intuit"></div>
+        <script type="text/jsx">
+//            let button = <button>Click</button>;
+//            let chk = <input type="checkbox"></input>;
+              let item = (<div>
+                    <label>Newsletter</label>
+                    <input type="checkbox"></input>
+                    <br/>
+                    <button>Click</button>  
+                </div>);        
+            ReactDOM.render(item, document.getElementById("intuit"));
+        </script>
+    </body>
+</html>    
